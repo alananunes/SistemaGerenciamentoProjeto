@@ -6,7 +6,6 @@ package controller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +21,9 @@ public class ProjectController {
     //metodo insert
     public void save(Project project){
         
-        String sql = "INSERT INTO project ("
-              +  "name," 
-              +  "description," 
-              +  "createdAt" 
-              +  "updateAt) VALUES (?,?,?,?)";
+       String sql = "INSERT INTO projects(name, description, createdAt, updatedAt) VALUES (?, ?, ?, ?)";
+
+       
                 
         Connection connection       = null;
         PreparedStatement statement = null;
@@ -39,8 +36,8 @@ public class ProjectController {
             //seta valor no texto sql
          statement.setString (1,project.getName());
          statement.setString (2,project.getDescription());
-         statement.setDate   (3, new Date(project.getCreatedAt().getTime()));
-         statement.setDate   (4,  new Date(project.getUpdateAt().getTime()));
+         statement.setDate(3, new java.sql.Date(project.getCreatedAt().getTime()));
+         statement.setDate   (4,  new java.sql.Date(project.getUpdateAt().getTime()));
          statement.execute();
                
         } catch (Exception e) {
@@ -57,7 +54,7 @@ public class ProjectController {
          String sql = "UPDATE project  SET"
               +  "name =?,"
               +  "description =?," 
-              +  "createdA =?t" 
+              +  "createdA =?t," 
               +  "updateAt =?"
               +  "WHERE id =?";
          
@@ -71,8 +68,8 @@ public class ProjectController {
          statement = connection.prepareStatement(sql);
          statement.setString (1,project.getName());
          statement.setString (2,project.getDescription());
-         statement.setDate   (3, new Date(project.getCreatedAt().getTime()));
-         statement.setDate   (4,  new Date(project.getUpdateAt().getTime()));
+         statement.setDate   (3, new java.sql.Date(project.getCreatedAt().getTime()));
+         statement.setDate   (4,  new java.sql.Date(project.getUpdateAt().getTime()));
          statement.setInt(5,project.getId());
          
          //executando a query

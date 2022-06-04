@@ -17,10 +17,20 @@ CREATE TABLE task(
 	 description varchar(50),
 	 completed  bit,
 	 notes  varchar(50),
-     deadline  date,
+         deadline  date,
 	 createdAt  datetime,
 	 updateAt  datetime,
 	 CONSTRAINT FK_idProject FOREIGN KEY (idProject)
     REFERENCES project(id)
+
+)
+
+===================================================
+CREATE TABLE project(
+	 id int NOT NULL IDENTITY(1,1) PRIMARY KEY, 
+	 name  varchar(50) NOT NULL,
+	 description varchar(50),
+	 createdAt  datetime,
+	 updateAt  datetime
 
 )

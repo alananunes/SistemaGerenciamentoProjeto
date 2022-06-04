@@ -14,8 +14,8 @@ import java.sql.ResultSet;
  * @author Alana
  */
 public class ConnectionFactory {
-        public static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-        public static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=todoApp";
+        public static final String DRIVER = "com.mysql.jdbc.Driver";
+        public static final String URL = "jdbc:mysql://localhost:3306/todoapp";
         public static final String USER = "root";
         public static final String PASS = "";
         
