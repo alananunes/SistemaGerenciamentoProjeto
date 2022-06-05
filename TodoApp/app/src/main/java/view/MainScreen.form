@@ -286,9 +286,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabelTasksTitle" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabelTasksAdd" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="jLabelTasksAdd" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -313,6 +313,9 @@
               <Image iconType="3" name="/add.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelTasksAddMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

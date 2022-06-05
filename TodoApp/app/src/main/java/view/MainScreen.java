@@ -4,8 +4,12 @@
  */
 package view;
 
+import controller.ProjectController;
+import controller.TaskController;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.DefaultBoundedRangeModel;
+import model.Project;
 
 /**
  *
@@ -13,12 +17,15 @@ import java.awt.Font;
  */
 public class MainScreen extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainScreen
-     */
+    //criar instancias dos controladores
+    ProjectController projectController;
+    TaskController taskController;
+    DefaultListModel<Project> projectModel;
+    
     public MainScreen() {
         initComponents();
         decorateTableTask();
+        initDataController();
         
     }
 
@@ -169,6 +176,11 @@ public class MainScreen extends javax.swing.JFrame {
         jLabelTasksTitle.setText("Tarefas");
 
         jLabelTasksAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/add.png"))); // NOI18N
+        jLabelTasksAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelTasksAddMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelTasksLayout = new javax.swing.GroupLayout(jPanelTasks);
         jPanelTasks.setLayout(jPanelTasksLayout);
@@ -185,7 +197,7 @@ public class MainScreen extends javax.swing.JFrame {
             jPanelTasksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTasksLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanelTasksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelTasksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelTasksTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelTasksAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -315,6 +327,16 @@ public class MainScreen extends javax.swing.JFrame {
         projectDialogScreen.setVisible(true);
     }//GEN-LAST:event_jLabelProjectsAddMouseClicked
 
+    private void jLabelTasksAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTasksAddMouseClicked
+        // TODO add your handling code here:
+        
+        //seta o id no qual a tarefa pertence
+        TaskDialogScreen taskDialogScreen = new TaskDialogScreen(this, rootPaneCheckingEnabled);
+        //taskDialogScreen.setProject(null);
+        taskDialogScreen.setVisible(true);
+        
+    }//GEN-LAST:event_jLabelTasksAddMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -381,6 +403,16 @@ public void decorateTableTask(){
     jTableTasks.getTableHeader().setForeground(new Color(255,255,255));
     //podemos ordenar as colunas ao clicar => Criando um sort automático para as colunas da table 
     jTableTasks.setAutoCreateRowSorter(true);
+    
+}
+
+public void initDataController(){
+    projectController = new ProjectController();
+    taskController = new TaskController();
+    
+}
+
+public void loadProject(){
     
 }
 

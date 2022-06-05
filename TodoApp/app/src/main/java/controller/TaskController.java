@@ -29,9 +29,10 @@ public class TaskController {
               +  "notes," 
               +  "isCompleted," 
               +  "deadline," 
-              +  "createdAt" 
+              +  "createdAt," 
               + "updateAt) VALUES (?,?,?,?,?,?,?,?)";
-                
+        
+               System.out.print(sql);
         Connection connection       = null;
         PreparedStatement statement = null;
         
@@ -44,11 +45,13 @@ public class TaskController {
          statement.setInt(1,task.getIdProject());
          statement.setString (2,task.getName());
          statement.setString (3,task.getDescription());
-         statement.setBoolean(4,task.isCompleted());
-         statement.setString (5,task.getNotes());
+         statement.setString (4,task.getNotes());
+         statement.setBoolean(5,task.isIsCompleted());
+         
          statement.setDate   (6,  new Date(task.getDeadline().getTime()));
          statement.setDate   (7, new Date(task.getCreatedAt().getTime()));
-         statement.setDate   (8,  new Date(task.getUpdateAt().getTime()));
+          
+          statement.setDate   (8,  new Date(task.getUpdateAt().getTime()));
          statement.execute();
                
         } catch (Exception e) {
@@ -69,8 +72,8 @@ public class TaskController {
               +  "notes =?," 
               +  "isCompleted =?," 
               +  "deadline =?," 
-              +  "createdA =?t" 
-              + "updateAt =?"
+              +  "createdA =?t," 
+              +  "updateAt =?"
               + " WHERE id =?";
          
         Connection connection       = null;
@@ -84,7 +87,7 @@ public class TaskController {
          statement.setInt(1,task.getIdProject());
          statement.setString (2,task.getName());
          statement.setString (3,task.getDescription());
-         statement.setBoolean(4,task.isCompleted());
+         statement.setBoolean(4,task.isIsCompleted());
          statement.setString (5,task.getNotes());
          statement.setDate   (6,  new Date(task.getDeadline().getTime()));
          statement.setDate   (7, new Date(task.getCreatedAt().getTime()));
@@ -153,7 +156,7 @@ public class TaskController {
                task.setName(resultSet.getString("name"));
                task.setDescription(resultSet.getString("description"));
                task.setNotes(resultSet.getString("notes"));
-               task.setCompleted(resultSet.getBoolean("completed"));
+               task.setIsCompleted(resultSet.getBoolean("isCompleted"));
                task.setDeadline(resultSet.getDate("deadline"));
                task.setCreatedAt(resultSet.getDate("createdAt"));
                task.setUpdateAt(resultSet.getDate("updateAt"));

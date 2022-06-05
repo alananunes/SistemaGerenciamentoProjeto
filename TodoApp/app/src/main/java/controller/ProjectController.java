@@ -4,9 +4,11 @@
  */
 package controller;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import model.Project;
@@ -21,7 +23,7 @@ public class ProjectController {
     //metodo insert
     public void save(Project project){
         
-       String sql = "INSERT INTO projects(name, description, createdAt, updatedAt) VALUES (?, ?, ?, ?)";
+       String sql = "INSERT INTO project(name, description, createdAt, updateAt) VALUES (?, ?, ?, ?)";
 
        
                 
@@ -36,9 +38,29 @@ public class ProjectController {
             //seta valor no texto sql
          statement.setString (1,project.getName());
          statement.setString (2,project.getDescription());
-         statement.setDate(3, new java.sql.Date(project.getCreatedAt().getTime()));
-         statement.setDate   (4,  new java.sql.Date(project.getUpdateAt().getTime()));
-         statement.execute();
+                Date data = null;
+                Date dataUpdate = null;
+              
+                
+                if(project != null && project.getCreatedAt() != null){
+                     data =  new  Date(project.getCreatedAt().getTime());
+                }else{ data = null;
+                } 
+                statement.setDate(3, data);
+         
+                /**
+                 *  if(project != null && project.getUpdateAt() != null){
+                     dataUpdate =  new  Date(project.getUpdateAt().getTime());
+                }else{ dataUpdate = null;
+                }  statement.setDate(4, dataUpdate);
+                
+                
+                 */
+                
+                
+        // statement.setDate(3, new java.sql.Date(project.getCreatedAt().getTime()));
+        statement.setDate(4,  new Date(project.getUpdateAt().getTime()));
+        
                
         } catch (Exception e) {
             throw new RuntimeException("Erro ao salvar o projeto "
@@ -49,6 +71,8 @@ public class ProjectController {
    
         
     }
+    
+
     public void update(Project project){
         
          String sql = "UPDATE project  SET"

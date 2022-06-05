@@ -1,4 +1,5 @@
 package model;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -74,13 +75,15 @@ public class Task {
         this.notes = notes;
     }
 
-    public boolean isCompleted() {
+    public boolean isIsCompleted() {
         return isCompleted;
     }
 
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
+    public void setIsCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
     }
+
+ 
 
     public Date getDeadline() {
         return deadline;
@@ -99,6 +102,7 @@ public class Task {
     }
 
     public Date getUpdateAt() {
+                
         return updateAt;
     }
 
