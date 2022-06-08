@@ -33,6 +33,7 @@ public class Task {
     public Task() {
         //define data de criação no momento q é criado
         this.createdAt = new Date();
+        this.updateAt = new Date();
     }
     
     public int getId() {

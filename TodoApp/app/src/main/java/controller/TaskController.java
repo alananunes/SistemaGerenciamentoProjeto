@@ -32,7 +32,7 @@ public class TaskController {
               +  "createdAt," 
               + "updateAt) VALUES (?,?,?,?,?,?,?,?)";
         
-               System.out.print(sql);
+               //System.out.print(sql);
         Connection connection       = null;
         PreparedStatement statement = null;
         
@@ -65,17 +65,12 @@ public class TaskController {
     }
     public void update(Task task){
         
-         String sql = "UPDATE task  SET"
-              + "idProject =?,"
-              +  "name =?," 
-              +  "description =?," 
-              +  "notes =?," 
-              +  "isCompleted =?," 
-              +  "deadline =?," 
-              +  "createdA =?t," 
-              +  "updateAt =?"
-              + " WHERE id =?";
-         
+                    
+         String sql = "UPDATE task SET idProject = ?, "
+                 + "name = ?, description = ?, isCompleted = ?, "
+                 + "notes = ?, deadline = ?, "
+                 + "createdAt = ?, updateAt = ? WHERE id = ?";
+          
         Connection connection       = null;
         PreparedStatement statement = null;
         
@@ -93,7 +88,7 @@ public class TaskController {
          statement.setDate   (7, new Date(task.getCreatedAt().getTime()));
          statement.setDate   (8,  new Date(task.getUpdateAt().getTime()));
          statement.setInt(9,task.getId());
-         
+          //System.out.print(sql);
          //executando a query
          statement.execute();
                

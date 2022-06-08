@@ -25,7 +25,7 @@ public class ProjectController {
         
        String sql = "INSERT INTO project(name, description, createdAt, updateAt) VALUES (?, ?, ?, ?)";
 
-       
+      
                 
         Connection connection       = null;
         PreparedStatement statement = null;
@@ -38,7 +38,8 @@ public class ProjectController {
             //seta valor no texto sql
          statement.setString (1,project.getName());
          statement.setString (2,project.getDescription());
-                Date data = null;
+         /**
+          *   Date data = null;
                 Date dataUpdate = null;
               
                 
@@ -47,6 +48,9 @@ public class ProjectController {
                 }else{ data = null;
                 } 
                 statement.setDate(3, data);
+              
+          */
+              
          
                 /**
                  *  if(project != null && project.getUpdateAt() != null){
@@ -58,10 +62,10 @@ public class ProjectController {
                  */
                 
                 
-        // statement.setDate(3, new java.sql.Date(project.getCreatedAt().getTime()));
+        statement.setDate(3, new java.sql.Date(project.getCreatedAt().getTime()));
         statement.setDate(4,  new Date(project.getUpdateAt().getTime()));
         
-               
+              // System.out.print(sql); 
         } catch (Exception e) {
             throw new RuntimeException("Erro ao salvar o projeto "
                     + e.getMessage(), e);
