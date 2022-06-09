@@ -25,7 +25,7 @@ public class ProjectController {
         
        String sql = "INSERT INTO project(name, description, createdAt, updateAt) VALUES (?, ?, ?, ?)";
 
-      
+     
                 
         Connection connection       = null;
         PreparedStatement statement = null;
@@ -38,20 +38,16 @@ public class ProjectController {
             //seta valor no texto sql
          statement.setString (1,project.getName());
          statement.setString (2,project.getDescription());
-         /**
-          *   Date data = null;
-                Date dataUpdate = null;
-              
-                
-                if(project != null && project.getCreatedAt() != null){
+         statement.setDate(3, new java.sql.Date(project.getCreatedAt().getTime()));
+         statement.setDate(4, new java.sql.Date(project.getUpdateAt().getTime()));
+              /**
+           Date data = null;
+                              if(project != null && project.getCreatedAt() != null){
                      data =  new  Date(project.getCreatedAt().getTime());
                 }else{ data = null;
                 } 
                 statement.setDate(3, data);
-              
-          */
-              
-         
+                  
                 /**
                  *  if(project != null && project.getUpdateAt() != null){
                      dataUpdate =  new  Date(project.getUpdateAt().getTime());
@@ -62,10 +58,12 @@ public class ProjectController {
                  */
                 
                 
-        statement.setDate(3, new java.sql.Date(project.getCreatedAt().getTime()));
-        statement.setDate(4,  new Date(project.getUpdateAt().getTime()));
-        
-              // System.out.print(sql); 
+       // statement.setDate(3, new java.sql.Date(project.getCreatedAt().getTime()));
+      // statement.setDate(4,  new Date(project.getUpdateAt().getTime()));
+      
+       //executando a query
+         statement.execute();
+               
         } catch (Exception e) {
             throw new RuntimeException("Erro ao salvar o projeto "
                     + e.getMessage(), e);

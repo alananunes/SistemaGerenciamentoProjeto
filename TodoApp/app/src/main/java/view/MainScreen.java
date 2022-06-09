@@ -15,6 +15,8 @@ import javax.swing.DefaultBoundedRangeModel;
 import javax.swing.DefaultListModel;
 import model.Project;
 import model.Task;
+import util.ButtonColumnCellRederer;
+import util.DeadlineColumnCellRederer;
 import util.TaskTableModel;
 
 /**
@@ -31,9 +33,9 @@ public class MainScreen extends javax.swing.JFrame {
     
     public MainScreen() {
         initComponents();
-        decorateTableTask();
         initDataController();
         initComponentsModel();
+        decorateTableTask();
         
     }
 
@@ -293,7 +295,7 @@ public class MainScreen extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 439, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -332,6 +334,7 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void jLabelProjectsAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelProjectsAddMouseClicked
        //instancia um objeto e ao clicar no mais ele chama a tela de cadastro de projetos
+         //ProjectDialogScreen projectDialogScreen = new ProjectDialogScreen(this, true);
         ProjectDialogScreen projectDialogScreen = new ProjectDialogScreen(this, rootPaneCheckingEnabled);
         projectDialogScreen.setVisible(true);
         
@@ -372,17 +375,21 @@ public class MainScreen extends javax.swing.JFrame {
         int rowIndex = jTableTasks.rowAtPoint(evt.getPoint());
         //descobre qual a coluna que foi clicada
         int columnIndex = jTableTasks.columnAtPoint(evt.getPoint());
-        
+        Task task = taskModel.getTasks().get(rowIndex);
         switch (columnIndex) {
             case 3:
-                Task task = taskModel.getTasks().get(rowIndex);
-                taskController.update(task);
+               taskController.update(task);
                 break;
             case 4:
                 
             break;
             case 5:
+                taskController.removeById(task.getId());
+                taskModel.getTasks().remove(task);
                 
+                int projectIndex = jListProjects.getSelectedIndex();
+                Project project = (Project) projectsModel.get(projectIndex);
+                loadTasks(project.getId());
             break;
                           
         }
@@ -460,8 +467,17 @@ public class MainScreen extends javax.swing.JFrame {
         jTableTasks.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD,14));
         jTableTasks.getTableHeader().setBackground(new Color(0,153,102));
         jTableTasks.getTableHeader().setForeground(new Color(255,255,255));
+        
+        jTableTasks.getColumnModel().getColumn(2)
+                .setCellRenderer(new DeadlineColumnCellRederer());
+         jTableTasks.getColumnModel().getColumn(4)
+                .setCellRenderer(new ButtonColumnCellRederer("edit"));
+         //esse nome delete é o nome do arquivo q esta na pasta resource
+         jTableTasks.getColumnModel().getColumn(5)
+                .setCellRenderer(new ButtonColumnCellRederer("delete"));
         //podemos ordenar as colunas ao clicar => Criando um sort automático para as colunas da table 
         jTableTasks.setAutoCreateRowSorter(true);
+        
 
     }
 
